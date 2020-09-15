@@ -43,6 +43,12 @@ export default function PersonalData() {
         e.preventDefault();      
         try{
             await Axios.post("http://104.131.46.234:5000/users/emailChange", { newEmail:email, id:userData.user.id });
+            setUserData({
+                accountKeyConfirmed: false,
+                token: undefined,
+                user: undefined,
+            });
+            
             history.push("/login");
         }catch(err){
         }
