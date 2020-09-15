@@ -24,13 +24,13 @@ export default function PersonalData() {
     }, [history, userData.user]);
     
     function SendNewToken() {
-        Axios.post( "http://104.131.46.234:5000/users/newToken", {id:userData.user.id});
+        Axios.post( "http://localhost:5000/users/newToken", {id:userData.user.id});
     }
 
     const submitToken = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post( "http://104.131.46.234:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
+            await Axios.post( "http://localhost:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
             setUserData({
                 accountKeyConfirmed: true,
             });
@@ -42,7 +42,7 @@ export default function PersonalData() {
     const submitNewEmail = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post("http://104.131.46.234:5000/users/emailChange", { newEmail:email, id:userData.user.id });
+            await Axios.post("http://localhost:5000/users/emailChange", { newEmail:email, id:userData.user.id });
             setUserData({
                 accountKeyConfirmed: false,
                 token: undefined,
@@ -59,7 +59,7 @@ export default function PersonalData() {
         
         try{
             const dataUser = { userName, userBirth, userCPF, userAddress, userBiography, id:userData.user.id };
-            await Axios.post( "http://104.131.46.234:5000/users/personalData", dataUser);
+            await Axios.post( "http://localhost:5000/users/personalData", dataUser);
             history.push("/");
         }catch(err){
         }
@@ -76,35 +76,35 @@ export default function PersonalData() {
                 <label htmlFor = "user-name">User Name*</label>
                 <input 
                     id = "user-name"
-                    type = "userName"
+                    type = "text"
                     onChange = {(e) => setUserName(e.target.value)}
                 />
 
                 <label htmlFor = "user-birth">Birth Date*</label>
                 <input 
                     id = "user-birth"
-                    type = "userBirth"
+                    type = "text"
                     onChange = {(e) => setUserBirth(e.target.value)}
                 />
 
                 <label htmlFor = "user-CPF">CPF*</label>
                 <input 
                     id = "user-CPF"
-                    type = "userCPF"
+                    type = "text"
                     onChange = {(e) => setUserCPF(e.target.value)}
                 />
 
                 <label htmlFor = "user-address">Address*</label>
                 <input 
                     id = "user-address"
-                    type = "userAddress"
+                    type = "text"
                     onChange = {(e) => setUserAddress(e.target.value)}
                 />
 
                 <label htmlFor = "Biography">Biography</label>
                 <input 
                     id = "Biography"
-                    type = "userBiography"
+                    type = "text"
                     onChange = {(e) => setUserBiography(e.target.value)}
                 />
                 <input type = "submit" value = "Update Data" />
@@ -115,7 +115,7 @@ export default function PersonalData() {
                 <label htmlFor = "email">Change Email</label>
                 <input 
                     id = "email"
-                    type = "newEmail"
+                    type = "email"
                     onChange = {(e) => setEmail(e.target.value)}
                 />
 
@@ -128,7 +128,7 @@ export default function PersonalData() {
                 <label htmlFor = "token">Confirmation Token*</label>
                 <input 
                     id = "token"
-                    type = "resetTokenConfirmation"
+                    type = "text"
                     onChange = {(e) => setResetTokenConfirmation(e.target.value)}
                 />
 

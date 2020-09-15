@@ -28,7 +28,7 @@ export default function Meeting() {
         
         try{
             const dataUser = { name, description, meetingRoom, hour, criator, participants,id:userData.user.id };
-            await Axios.post( "http://104.131.46.234:5000/users/", dataUser);
+            await Axios.post( "http://localhost:5000/users/", dataUser);
             history.push("/");
         }catch(err){
         }
@@ -45,42 +45,42 @@ export default function Meeting() {
                 <label htmlFor = "name">Name</label>
                 <input 
                     id = "name"
-                    type = "name"
+                    type = "text"
                     onChange = {(e) => setName(e.target.value)}
                 />
 
                 <label htmlFor = "description">Description</label>
                 <input 
                     id = "description"
-                    type = "description"
+                    type = "text"
                     onChange = {(e) => setDescription(e.target.value)}
                 />
 
                 <label htmlFor = "meetingRoom">MeetingRoom</label>
                 <input 
                     id = "meetingRoom"
-                    type = "meetingRoom"
+                    type = "text"
                     onChange = {(e) => setUserMeetingRoom(e.target.value)}
                 />
 
                 <label htmlFor = "hour">Hour</label>
                 <input 
                     id = "hour"
-                    type = "hour"
+                    type = "text"
                     onChange = {(e) => setUserHour(e.target.value)}
                 />
 
                 <label htmlFor = "criator">Criator</label>
                 <input 
                     id = "criator"
-                    type = "criator"
+                    type = "text"
                     onChange = {(e) => setCreator(e.target.value)}
                 />
 
                 <label htmlFor = "participants">Participants</label>
                 <input 
                     id = "participants"
-                    type = "participants"
+                    type = "text"
                     onChange = {(e) => setParticipants(e.target.value)}
                 />
 

@@ -18,7 +18,7 @@ export default function Login() {
 
         try{
             const loginUser = {email, password};
-            const loginRes = await Axios.post("http://104.131.46.234:5000/users/login", loginUser);
+            const loginRes = await Axios.post("http://localhost:5000/users/login", loginUser);
 
             setUserData({
                 token: loginRes.data.token,
@@ -42,7 +42,7 @@ export default function Login() {
                 <label htmlFor = "login-email">Email</label>
                 <input 
                     id = "login-email"
-                    type = "email"
+                    type = "text"
                     onChange = {(e) => setEmail(e.target.value)}
                 />
 
