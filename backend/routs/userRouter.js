@@ -353,4 +353,13 @@ router.post("/meeting", (req, res) => {
 
 })
 
+router.post("/workstationAdmin", (req, res) => {
+
+})
+
+router.post("/meetingAdmin", (req, res) => {
+
+})
+
+
 module.exports = router;

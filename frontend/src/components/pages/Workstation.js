@@ -13,5 +13,4 @@ export default function Workstation() {
 
     return <div className = "page"> Workstation </div>;
     
-
 }
