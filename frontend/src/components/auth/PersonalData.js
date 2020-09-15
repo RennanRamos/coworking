@@ -54,7 +54,6 @@ export default function PersonalData() {
         try{
             const dataUser = { userName, userBirth, userCPF, userAddress, userBiography, id:userData.user.id };
             await Axios.post( "http://localhost:5000/users/personalData", dataUser);
-
             history.push("/");
         }catch(err){
         }
@@ -128,9 +127,8 @@ export default function PersonalData() {
                 />
 
                 <button type = "submitToken"> Confirm Token </button >
-                <>    </>
-                <button onClick = {SendNewToken}> Send a new Token </button >
             </form>
+                <button onClick = {SendNewToken}> Send a new Token </button >
 
 
         </div>

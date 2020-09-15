@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const authentication = require("../middleware/auth");
 const validator = require("validator");
 const nodemailer = require("nodemailer");
-const cpfValidator = require("cpf-cnpj-validator");
 const router = require ("express").Router();
 const User = require ("../models/userModels");
 
@@ -143,7 +142,11 @@ router.get("/", authentication, async (req, res) => {
     const user = await User.findById(req.user);
         
     res.json({
-        id: user._id,
+        user: {
+            id: user._id,
+            admin: user.admin,
+            accountKeyConfirmed: user.accountKeyConfirmed,
+        },
     });
 })
 
@@ -224,10 +227,11 @@ router.post("/confirmationToken", (req, res) => {
             if(!user){
                 return res.status(422).json({error: "Try again sesion expired"})
             }
+            if (user.resetTokenConfirmation === token)
                 user.accountKeyConfirmed = true;
                 user.save()
                 return res.status(200).json({user:user});
-        })
+            })
     }catch(err){
         res.status(500).json({error: err.mensage});
     }
@@ -280,13 +284,11 @@ router.post("/newToken", (req, res) => {
 
     try {
         User.findById(id)        
-            .then(async (user) => {
-    
+            .then(async (user) => {  
                 if(!user){
                     return res.status(422).json({error: "Try again sesion expired"})
                 }
-                console.log(user)
-                console.log(id)
+
                     crypto.randomBytes(8, (err, buffer) => {
                         if (err){
                             console.log(err)
@@ -316,31 +318,30 @@ router.post("/newToken", (req, res) => {
 })
 
 router.post("/personalData", async (req, res) => {
-    try {  
+    try { 
         const {userName, userBirth, userCPF, userAddress, userBiography, id} = req.body;
         if (!userName || !userBirth || !userCPF || !userAddress)
-            return res.status(400).json({msg: "Not all fields have been entred."});
-        const cpfSafe = cpfValidator.format(userCPF)
-        console.log(cpfSafe);
-        if (!cpfValidator.isValid(cpfSafe))
-            return res.status(400).json({msg: "CPF is not valid."});
-        console.log(cpfSafe);
+            return res.status(400).json({msg: "Not all fields have been entred."}); 
+                
+        if (userCPF < 11)
+            return res.status(400).json({msg: "The CPF is not valid."});
+        console.log(req.body)
         
-        const newUserData = new UserData({
-            userId: id,
-            userName: userName,
-            userBirth: userBirth,
-            userCPF: cpfSafe,
-            userAddress: userAddress,
-            userBiography: userBiography,
-        });
-        
-        const savedUser = await newUserData.save();
-        console.log(savedUser);
+        User.findById(id)
+        .then((user) => {
+            user.userName = userName;
+            user.userBirth= userBirth;
+            user.userCPF= userCPF;
+            user.userAddress= userAddress;
+            user.userBiography= userBiography;
+            user.save().then(() => {
+                return res.json(user) 
+                })
+        })                      
 
-        res.json(savedUser);
     }catch (err){
-        res.status(500).json({error: err.mensage});
+        console.log(err)
+        return res.status(500).json({error: err.mensage});
     }
 })
 
