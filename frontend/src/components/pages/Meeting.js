@@ -28,7 +28,7 @@ export default function Meeting() {
         
         try{
             const dataUser = { name, description, meetingRoom, hour, criator, participants,id:userData.user.id };
-            await Axios.post( "http://localhost:5000/users/", dataUser);
+            await Axios.post( "http://104.131.46.234:5000/users/", dataUser);
             history.push("/");
         }catch(err){
         }

@@ -24,13 +24,13 @@ export default function PersonalData() {
     }, [history, userData.user]);
     
     function SendNewToken() {
-        Axios.post( "http://localhost:5000/users/newToken", {id:userData.user.id});
+        Axios.post( "http://104.131.46.234:5000/users/newToken", {id:userData.user.id});
     }
 
     const submitToken = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post( "http://localhost:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
+            await Axios.post( "http://104.131.46.234:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
             setUserData({
                 accountKeyConfirmed: true,
             });
@@ -42,7 +42,7 @@ export default function PersonalData() {
     const submitNewEmail = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post("http://localhost:5000/users/emailChange", { newEmail:email, id:userData.user.id });
+            await Axios.post("http://104.131.46.234:5000/users/emailChange", { newEmail:email, id:userData.user.id });
             setUserData({
                 accountKeyConfirmed: false,
                 token: undefined,
@@ -59,7 +59,7 @@ export default function PersonalData() {
         
         try{
             const dataUser = { userName, userBirth, userCPF, userAddress, userBiography, id:userData.user.id };
-            await Axios.post( "http://localhost:5000/users/personalData", dataUser);
+            await Axios.post( "http://104.131.46.234:5000/users/personalData", dataUser);
             history.push("/");
         }catch(err){
         }

@@ -11,7 +11,7 @@ export default function ResetPassword() {
 
     const submit = async (e) => {
         e.preventDefault();
-        await Axios.post("http://localhost:5000/users/resetPassword", {email});
+        await Axios.post("http://104.131.46.234:5000/users/resetPassword", {email});
         history.push("/login");
     };
     
