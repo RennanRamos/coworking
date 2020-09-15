@@ -10,6 +10,8 @@ export default function Workstation() {
     useEffect(() => {
         if (!userData.user) history.push("/login");
     }, [history, userData.user]);
+
     return <div className = "page"> Workstation </div>;
+    
 
 }

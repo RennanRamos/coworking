@@ -5,7 +5,7 @@ import ErrorNotice from "../misc/ErrorNotice";
 import Axios from "axios";
 
 export default function PersonalData() {
-    const [userName, setUserId] = useState();
+    const [userName, setUserName] = useState();
     const [userBirth, setUserBirth] = useState();
     const [userCPF, setUserCPF] = useState();
     const [userAddress, setUserAddress] = useState();
@@ -24,13 +24,13 @@ export default function PersonalData() {
     }, [history, userData.user]);
     
     function SendNewToken() {
-        Axios.post( "http://localhost:5000/users/newToken", {id:userData.user.id});
+        Axios.post( "http://104.131.46.234:5000/users/newToken", {id:userData.user.id});
     }
 
     const submitToken = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post( "http://localhost:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
+            await Axios.post( "http://104.131.46.234:5000/users/confirmationToken", {token:resetTokenConfirmation, id:userData.user.id, });
             setUserData({
                 accountKeyConfirmed: true,
             });
@@ -42,7 +42,7 @@ export default function PersonalData() {
     const submitNewEmail = async (e) => {
         e.preventDefault();      
         try{
-            await Axios.post("http://localhost:5000/users/emailChange", { newEmail:email, id:userData.user.id });
+            await Axios.post("http://104.131.46.234:5000/users/emailChange", { newEmail:email, id:userData.user.id });
             history.push("/login");
         }catch(err){
         }
@@ -53,7 +53,7 @@ export default function PersonalData() {
         
         try{
             const dataUser = { userName, userBirth, userCPF, userAddress, userBiography, id:userData.user.id };
-            await Axios.post( "http://localhost:5000/users/personalData", dataUser);
+            await Axios.post( "http://104.131.46.234:5000/users/personalData", dataUser);
             history.push("/");
         }catch(err){
         }
@@ -71,7 +71,7 @@ export default function PersonalData() {
                 <input 
                     id = "user-name"
                     type = "userName"
-                    onChange = {(e) => setUserId(e.target.value)}
+                    onChange = {(e) => setUserName(e.target.value)}
                 />
 
                 <label htmlFor = "user-birth">Birth Date*</label>

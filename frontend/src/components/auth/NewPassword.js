@@ -11,7 +11,7 @@ export default function NewPassword() {
 
     const submit = async (e) => {
         e.preventDefault();
-        const response = await Axios.post("http://localhost:5000/users/newPassword", {newPassword, token});
+        const response = await Axios.post("http://104.131.46.234:5000/users/newPassword", {newPassword, token});
         console.log(response);
         history.push("/login");
     };

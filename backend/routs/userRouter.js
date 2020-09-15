@@ -171,7 +171,7 @@ router.post("/resetPassword", (req, res) => {
                    from: "rennanboy45@gmail.com",
                    to: user.email,
                    subject: `Password Reset Link`,
-                   html: `<h5> Click on the <a href = "http://localhost:3000/resetPassword/${token}" >link</a> </h5> `,
+                   html: `<h5> Click on the <a href = "http://104.131.46.234:3000/resetPassword/${token}" >link</a> </h5> `,
                };
                
                transporter.sendMail(mailOptions, function(error) {
